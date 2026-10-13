@@ -17,4 +17,11 @@ class Document extends Model
    public function user(){
     return $this->belongsTo(User::class);
 }
+
+protected function casts(): array
+{
+    return [
+        'expires_at' => 'date',
+    ];
+}
 }
