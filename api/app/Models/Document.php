@@ -10,7 +10,8 @@ class Document extends Model
         'name', 
         'type', 
         'expires_at',
-        'remind_days_before'
+        'remind_days_before',
+        'photo_path',
    ];
 
    public function user(){
