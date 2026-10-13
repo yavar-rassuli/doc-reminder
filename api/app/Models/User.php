@@ -30,7 +30,7 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-        public function document(){
+        public function documents(){
         return $this->hasMany(Document::class);
     }
 
