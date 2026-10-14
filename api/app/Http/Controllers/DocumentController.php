@@ -12,7 +12,7 @@ class DocumentController extends Controller
      */
     public function index(Request $request)
     {
-        return $request->user()->documents()->get();
+        return $request->user()->documents()->orderby('expires_at')->get();
     }
 
     /**

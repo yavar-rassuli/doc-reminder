@@ -4,6 +4,23 @@ import { StyleSheet, Text, View, TextInput,Button } from 'react-native';
 
 const API_URL = 'https://glorious-space-memory-wxww4jpqwr4c57ww-8000.app.github.dev/api';
 
+const daysLeft = (expiresAt) => {
+  const diff = new Date(expiresAt) - new Date();
+  return Math.ceil(diff / (1000 * 60 * 60 * 24));
+};
+const getColor = (doc) => {         
+  const days = daysLeft(doc.expires_at);
+
+  if(days < 0){
+    return 'red';
+  }else if(days <= doc.remind_days_before){
+     return 'orange';
+  }else{
+      return 'green';
+  }
+ 
+};
+
 export default function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -55,7 +72,7 @@ const loadDocuments = async () => {
    if (token){
      return <View style={styles.container}>
           {documents.map(function (doc) {
-      return <Text key={doc.id}>{doc.name} - {doc.expires_at}</Text>;
+      return <Text key={doc.id} style= {{ color: getColor(doc) }}>{doc.name} - {doc.expires_at}</Text>;
     })}
 
 
