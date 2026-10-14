@@ -38,10 +38,14 @@ export default function DocumentsScreen({ token, onLogout }) {
         });
 
         const docs = await response.json();
-            if (!response.ok) {
+        if (response.status === 401) {
+            onLogout();
+            return;
+        }
+        if (!response.ok) {
             console.log('Error loading documents:', docs);
             return;
-            }
+        }
         setDocuments(docs);
 
     };
@@ -66,6 +70,10 @@ export default function DocumentsScreen({ token, onLogout }) {
         });
 
         const docs = await response.json();
+        if (response.status === 401) {
+            onLogout();
+            return;
+        }
         if (response.ok) {
             loadDocuments();
             setName("");
