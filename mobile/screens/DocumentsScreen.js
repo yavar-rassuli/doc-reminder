@@ -20,7 +20,7 @@ const getColor = (doc) => {
 
 };
 
-export default function DocumentsScreen({ token }) {
+export default function DocumentsScreen({ token, onLogout }) {
     const [documents, setDocuments] = useState([]);
     const [name, setName] = useState("");
     const [type, setType] = useState("");
@@ -78,8 +78,10 @@ export default function DocumentsScreen({ token }) {
 
 
     return (
-        <View style={styles.container}>
 
+
+        <View style={styles.container}>
+            <Button style={styles.container} title="Logout" onPress={onLogout} />
             <TextInput style={styles.input} value={name} onChangeText={setName} placeholder='Name' />
             <TextInput style={styles.input} value={type} onChangeText={setType} placeholder='e.g Passport' />
             <TextInput style={styles.input} value={expiresAt} onChangeText={setExpiresAt} placeholder='Expires at (YYYY-MM-DD)' />
@@ -109,6 +111,7 @@ const styles = StyleSheet.create({
         padding: 5,
         width: 200,
         marginBottom: 8,
+        marginTop: 8,
 
     }
 });

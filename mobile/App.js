@@ -10,6 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function App() {
   const [token, setToken] = useState("");
+
   const handleLogin = (newToken) => {
   // in den State
      setToken(newToken); 
@@ -18,6 +19,26 @@ export default function App() {
   AsyncStorage.setItem('token', newToken);
 
 };
+
+const handleLogout = async () => {
+  // Laravel: Token löschen
+const response = await fetch(API_URL + '/logout', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + token,
+            }
+
+        });
+
+  // Aktenschrank leeren
+      AsyncStorage.removeItem("token");
+
+  // Notizzettel leeren
+     setToken("");
+
+};
+
 
 useEffect(() => {
   const loadToken = async () => {
@@ -32,7 +53,7 @@ useEffect(() => {
 
 
 if (token) {
-  return <DocumentsScreen token={token} />;
+  return <DocumentsScreen token={token} onLogout={handleLogout} />;
 }
 
   return <LoginScreen onLogin={handleLogin}/>;   
