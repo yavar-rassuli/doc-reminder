@@ -38,6 +38,10 @@ export default function DocumentsScreen({ token }) {
         });
 
         const docs = await response.json();
+            if (!response.ok) {
+            console.log('Error loading documents:', docs);
+            return;
+            }
         setDocuments(docs);
 
     };
