@@ -7,6 +7,7 @@ const API_URL = 'https://glorious-space-memory-wxww4jpqwr4c57ww-8000.app.github.
 export default function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [token, setToken] = useState("");
 
   const handleLogin = async () => {
   const response = await fetch(API_URL + '/login', {
@@ -20,22 +21,25 @@ export default function App() {
 
   const data = await response.json();
   console.log(data);
+  setToken(data.token);
 };
 
 
+   if (token){
+     return <View style={styles.container}><Text>Welcome! 🎉</Text></View>;}
+    return (
+      <View style={styles.container}>
+        <Text>DocReminder 📄</Text>
 
-  return (
-    <View style={styles.container}>
-      <Text>DocReminder 📄</Text>
+        <TextInput style={styles.input} value={email}  onChangeText={setEmail} placeholder='E-Mail'/>
+        <TextInput style={styles.input} value={password} onChangeText={setPassword} placeholder='Password' secureTextEntry/>
+        <Button title="Login" onPress={handleLogin} />
 
-      <TextInput style={styles.input} value={email}  onChangeText={setEmail} placeholder='E-Mail'/>
-      <TextInput style={styles.input} value={password} onChangeText={setPassword} placeholder='Password' secureTextEntry/>
-      <Button title="Login" onPress={handleLogin} />
-
+    
+        <StatusBar style="auto" />
+      </View>
+    );
   
-      <StatusBar style="auto" />
-    </View>
-  );
 }
 
 const styles = StyleSheet.create({
@@ -49,7 +53,7 @@ const styles = StyleSheet.create({
   input:{
     borderWidth: 1,
     borderColor: '#ccc',
-    padding: '5px',
+    padding: 5,
     width: 200, 
     marginBottom: 8,
 
