@@ -21,7 +21,7 @@ class Document extends Model
 protected function casts(): array
 {
     return [
-        'expires_at' => 'date',
+        'expires_at' => 'date:Y-m-d',
     ];
 }
 }
