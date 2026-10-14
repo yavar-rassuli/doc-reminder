@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button,Platform, Alert } from 'react-native';
 import { API_URL } from '../config';
 
 //daysLeft und getColor
@@ -83,6 +83,47 @@ export default function DocumentsScreen({ token, onLogout }) {
 
     };
 
+    const handleDelete = async (id) => {
+        // 1. DELETE-Anfrage an /documents/ + id (mit Token!)
+        const response = await fetch(API_URL + '/documents/' + id, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token,
+            },
+
+
+        });
+
+        // 2. 401? → ausloggen
+        if (response.status === 401) {
+            onLogout();
+            return;
+        }
+        // 3. ok? → Liste neu laden
+        if (response.ok) {
+            loadDocuments();
+        }
+    };
+
+
+    const confirmDelete = (id) => {
+  if (Platform.OS === 'web') {
+    // 🖥️ Browser: window.confirm gibt true (OK) oder false (Abbrechen) zurück
+    if (window.confirm('Are you sure?')) {
+      handleDelete(id) ;
+    }
+  } else {
+    // 📱 Handy
+    Alert.alert('Delete document', 'Are you sure?', [
+      { text: 'Cancel', style: 'cancel' },
+      { text: 'Delete', style: 'destructive', onPress: () =>  handleDelete(id) },
+    ]);
+  }
+};
+
+
 
 
     return (
@@ -96,7 +137,13 @@ export default function DocumentsScreen({ token, onLogout }) {
             <Button title="Save" onPress={handleAddDocument} />
 
             {documents.map(function (doc) {
-                return <Text key={doc.id} style={{ color: getColor(doc) }}>{doc.name} - {doc.expires_at}</Text>;
+                return (
+                    <View key={doc.id} style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Text style={{ color: getColor(doc) }}>{doc.name} - {doc.expires_at} </Text>
+                        <Button title='Delete' onPress={() => confirmDelete(doc.id)} /> 
+                    </View>
+                )
+
             })}
 
 
