@@ -7,3 +7,16 @@
     line: '#E2DACB',
     swissRed: '#D52B1E',
 };
+
+
+export const webDateInput = {
+  border: 'none',
+  borderBottom: `2px solid ${COLORS.ink}`,
+  background: 'transparent',
+  padding: '10px 0',
+  marginBottom: '14px',
+  fontFamily: 'inherit',
+  fontSize: '18px',
+  color:  COLORS.muted,
+
+};

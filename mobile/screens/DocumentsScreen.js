@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, Pressable, ScrollView, Platform, Alert } from 'react-native';
 import { API_URL } from '../config';
-import { COLORS } from '../theme';
+import { COLORS, webDateInput } from '../theme';
 import Logo from '../Logo';
 
 const MONO = Platform.select({ ios: 'Menlo', android: 'monospace', default: 'monospace' });
@@ -182,7 +182,10 @@ export default function DocumentsScreen({ token, onLogout }) {
                     <Text style={styles.formTitle}>Add to your folder</Text>
                     <TextInput style={styles.input} value={name} onChangeText={setName} placeholder="Name — e.g. Passport" placeholderTextColor={COLORS.muted} />
                     <TextInput style={styles.input} value={type} onChangeText={setType} placeholder="Type — e.g. passport" placeholderTextColor={COLORS.muted} />
-                    <TextInput style={styles.input} value={expiresAt} onChangeText={setExpiresAt} placeholder="Expires — YYYY-MM-DD" placeholderTextColor={COLORS.muted} />
+                    {Platform.OS === 'web' ? <input type='date' style={webDateInput} value={expiresAt} onClick={(e) => e.target.showPicker()} onChange={(e) => setExpiresAt(e.target.value)} /> :
+                        <TextInput style={styles.input} value={expiresAt} onChangeText={setExpiresAt} placeholder="Expires — YYYY-MM-DD" placeholderTextColor={COLORS.muted} />
+
+                    }
                     <Pressable onPress={handleAddDocument} style={styles.addButton}>
                         <Text style={styles.addButtonText}>Add document  ＋</Text>
                     </Pressable>
