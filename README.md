@@ -11,7 +11,7 @@ The project has two parts:
 
 ## Screenshots
 
-<img src="docs/login.png" width="250"> <img src="docs/documents.png" width="250">
+<img src="docs/login.png" width="250"> <img src="docs/documents.png" width="350">
 
 ## Screenshots-Mobile
 <img src="docs/login-mobile.png" width="250"> <img src="docs/documents-mobile.png" width="250">
