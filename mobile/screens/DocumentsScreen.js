@@ -1,15 +1,8 @@
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, Pressable, ScrollView, Platform, Alert } from 'react-native';
 import { API_URL } from '../config';
-
-const COLORS = {
-    paper: '#F4EFE6',
-    card: '#FFFDF8',
-    ink: '#1F2A44',
-    muted: '#8A8577',
-    line: '#E2DACB',
-    swissRed: '#D52B1E',
-};
+import { COLORS } from '../theme';
+import Logo from '../Logo';
 
 const MONO = Platform.select({ ios: 'Menlo', android: 'monospace', default: 'monospace' });
 
@@ -123,13 +116,7 @@ export default function DocumentsScreen({ token, onLogout }) {
     return (
         <View style={styles.screen}>
             <View style={styles.header}>
-                <View style={styles.brand}>
-                    <View style={styles.cross}>
-                        <View style={styles.crossBarH} />
-                        <View style={styles.crossBarV} />
-                    </View>
-                    <Text style={styles.title}>DocReminder</Text>
-                </View>
+                <Logo />
                 <Pressable onPress={onLogout}>
                     <Text style={styles.logout}>Log out</Text>
                 </Pressable>
