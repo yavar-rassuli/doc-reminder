@@ -9,6 +9,13 @@ The project has two parts:
 - `api/` – REST API built with Laravel
 - `mobile/` – mobile app built with React Native (Expo)
 
+## Screenshots
+
+<img src="docs/login.png" width="250"> <img src="docs/documents.png" width="250">
+<img src="docs/login-mobile.png" width="250"> <img src="docs/documents-mobile.png" width="250">
+
+
+
 ## Features
 
 **API**
